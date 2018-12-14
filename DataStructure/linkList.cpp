@@ -37,7 +37,7 @@ Status InitList(LinkList* L) {
 Status ListLength(LinkList L) {
 	/*不需要有这个判断
 	if (NULL == L->next) {
-		return 0;
+	return 0;
 	}*/
 	int num = 0;
 	LinkList p = L->next;
@@ -80,6 +80,23 @@ Status ListTraverse(LinkList L)
 	return OK;
 }
 
+Status ListEmpty(LinkList L) {
+	return NULL == L->next;
+}
+
+Status ClearList(LinkList *L) {
+	LinkList p = (*L)->next;
+	LinkList t_point;
+	while (p)
+	{
+		t_point = p;
+		p = p->next;
+		free(t_point);
+	}
+	(*L)->next = NULL;
+	return OK;
+}
+
 int main()
 {
 	LinkList L;
@@ -93,14 +110,14 @@ int main()
 	printf("在L的表头依次插入1～5后：L.data=");
 	ListTraverse(L);
 
-	//printf("ListLength(L)=%d \n", ListLength(L));
-	//i = ListEmpty(L);
-	//printf("L是否空：i=%d(1:是 0:否)\n", i);
+	printf("ListLength(L)=%d \n", ListLength(L));
+	i = ListEmpty(L);
+	printf("L是否空：i=%d(1:是 0:否)\n", i);
 
-	//i = ClearList(&L);
-	//printf("清空L后：ListLength(L)=%d\n", ListLength(L));
-	//i = ListEmpty(L);
-	//printf("L是否空：i=%d(1:是 0:否)\n", i);
+	i = ClearList(&L);
+	printf("清空L后：ListLength(L)=%d\n", ListLength(L));
+	i = ListEmpty(L);
+	printf("L是否空：i=%d(1:是 0:否)\n", i);
 
 	//for (j = 1; j <= 10; j++)
 	//	ListInsert(&L, j, j);
