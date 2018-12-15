@@ -97,6 +97,32 @@ Status ClearList(LinkList *L) {
 	return OK;
 }
 
+Status GetElem(LinkList L, int idx, ElemType *e) {
+	LinkList t_LinkList = L;
+	int t_idx = idx;
+	if (idx<1 && idx>ListLength(L)) {
+		return ERROR;
+	}
+	while (t_idx--) {
+		t_LinkList = t_LinkList->next;
+	}
+	*e = t_LinkList->data;
+	return OK;
+}
+
+Status LocateElem(LinkList L, ElemType e) {
+	int No = 0;
+	LinkList t_LinkList = L->next;//这里取出第一个节点,即L->next
+	while (t_LinkList != NULL) {
+		No++;
+		if (e == t_LinkList->data) {
+			return No;
+		}
+		t_LinkList = t_LinkList->next;
+	}
+	return FALSE;
+}
+
 int main()
 {
 	LinkList L;
@@ -124,23 +150,23 @@ int main()
 	printf("在L的表尾依次插入1～10后：L.data=");
 	ListTraverse(L);
 
-	//printf("ListLength(L)=%d \n", ListLength(L));
+	printf("ListLength(L)=%d \n", ListLength(L));
 
-	//ListInsert(&L, 1, 0);
-	//printf("在L的表头插入0后：L.data=");
-	//ListTraverse(L);
-	//printf("ListLength(L)=%d \n", ListLength(L));
+	ListInsert(&L, 1, 0);
+	printf("在L的表头插入0后：L.data=");
+	ListTraverse(L);
+	printf("ListLength(L)=%d \n", ListLength(L));
 
-	//GetElem(L, 5, &e);
-	//printf("第5个元素的值为：%d\n", e);
-	//for (j = 3; j <= 4; j++)
-	//{
-	//	k = LocateElem(L, j);
-	//	if (k)
-	//		printf("第%d个元素的值为%d\n", k, j);
-	//	else
-	//		printf("没有值为%d的元素\n", j);
-	//}
+	GetElem(L, 5, &e);
+	printf("第5个元素的值为：%d\n", e);
+	for (j = 8; j <= 12; j++)
+	{
+		k = LocateElem(L, j);
+		if (k)
+			printf("第%d个元素的值为%d\n", k, j);
+		else
+			printf("没有值为%d的元素\n", j);
+	}
 
 
 	//k = ListLength(L); /* k为表长 */
