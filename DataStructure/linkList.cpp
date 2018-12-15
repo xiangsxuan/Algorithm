@@ -52,7 +52,7 @@ Status ListLength(LinkList L) {
 Status ListInsert(LinkList *L, int idx, ElemType e) {
 	LinkList prv_linkList = *L;
 	int t_idx = idx;
-	while (t_idx--&&t_idx > 1) {
+	while (t_idx > 1 && t_idx--) {
 		prv_linkList = prv_linkList->next;
 	}
 	LinkList toInsert = (LinkList)malloc(sizeof(Node));
@@ -119,10 +119,10 @@ int main()
 	i = ListEmpty(L);
 	printf("L是否空：i=%d(1:是 0:否)\n", i);
 
-	//for (j = 1; j <= 10; j++)
-	//	ListInsert(&L, j, j);
-	//printf("在L的表尾依次插入1～10后：L.data=");
-	//ListTraverse(L);
+	for (j = 1; j <= 10; j++)
+		ListInsert(&L, j, j);
+	printf("在L的表尾依次插入1～10后：L.data=");
+	ListTraverse(L);
 
 	//printf("ListLength(L)=%d \n", ListLength(L));
 
