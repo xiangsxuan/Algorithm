@@ -123,6 +123,50 @@ Status LocateElem(LinkList L, ElemType e) {
 	return FALSE;
 }
 
+Status ListDelete(LinkList *L, int idx, ElemType *e) {
+	if (idx<1 || idx>ListLength(*L)) {
+		return ERROR;
+	}
+	LinkList prv_List = (*L);
+	int t_idx = idx;
+	while (t_idx && t_idx > 1) {
+		prv_List = prv_List->next;
+		t_idx--;
+	}
+	LinkList toDelete_LinkList = prv_List->next;
+	*e = toDelete_LinkList->data;
+	prv_List->next = prv_List->next->next;
+	free(toDelete_LinkList);
+	return OK;
+}
+
+void CreateListHead(LinkList *L, int num) {
+	*L = (LinkList)malloc(sizeof(Node));
+	(*L)->next = NULL;//一开始忘了初始化头节点了
+	LinkList newNode;//这句话一开始放在了下面的for循环里,里面会浪费空间是性能,放在外面更好
+	for (int i = 1; i <= num; i++) {
+		newNode = (Node*)malloc(sizeof(Node));
+		(*newNode).data = i;
+		(*newNode).next = (*L)->next;
+		(*L)->next = newNode;
+	}
+}
+
+void CreateListTail(LinkList *L, int num) {
+	*L = (LinkList)malloc(sizeof(Node));
+	(*L)->next = NULL;
+	LinkList newNode;
+	LinkList lastNode = *L;
+	for (int i = 1; i <= num; i++) {
+		newNode = (Node*)malloc(sizeof(Node));
+		(*newNode).data = i;
+		(*newNode).next = lastNode->next;
+		lastNode->next = newNode;
+		lastNode = newNode;
+	}
+	lastNode->next = NULL;//链表末尾的NULL每次建立、修改链表都不要忘记了
+}
+
 int main()
 {
 	LinkList L;
@@ -169,36 +213,38 @@ int main()
 	}
 
 
-	//k = ListLength(L); /* k为表长 */
-	//for (j = k + 1; j >= k; j--)
-	//{
-	//	i = ListDelete(&L, j, &e); /* 删除第j个数据 */
-	//	if (i == ERROR)
-	//		printf("删除第%d个数据失败\n", j);
-	//	else
-	//		printf("删除第%d个的元素值为：%d\n", j, e);
-	//}
-	//printf("依次输出L的元素：");
-	//ListTraverse(L);
+	k = ListLength(L); /* k为表长 */
+	for (j = k + 1; j >= k; j--)
+	{
+		i = ListDelete(&L, j, &e); /* 删除第j个数据 */
+		if (i == ERROR)
+			printf("删除第%d个数据失败\n", j);
+		else
+			printf("删除第%d个的元素值为：%d\n", j, e);
+	}
+	printf("依次输出L的元素：");
+	ListTraverse(L);
 
-	//j = 5;
-	//ListDelete(&L, j, &e); /* 删除第5个数据 */
-	//printf("删除第%d个的元素值为：%d\n", j, e);
+	j = 5;
+	ListDelete(&L, j, &e); /* 删除第5个数据 */
+	printf("删除第%d个的元素值为：%d\n", j, e);
 
-	//printf("依次输出L的元素：");
-	//ListTraverse(L);
+	printf("依次输出L的元素：");
+	ListTraverse(L);
 
-	//i = ClearList(&L);
-	//printf("\n清空L后：ListLength(L)=%d\n", ListLength(L));
-	//CreateListHead(&L, 20);
-	//printf("整体创建L的元素(头插法)：");
-	//ListTraverse(L);
+	i = ClearList(&L);
+	printf("\n清空L后：ListLength(L)=%d\n", ListLength(L));
+	CreateListHead(&L, 20);//头插法 插入1到20
+	printf("整体创建L的元素(头插法)：");
+	ListTraverse(L);
+	printf("头插法后:ListLength(L)=%d \n", ListLength(L));
 
-	//i = ClearList(&L);
-	//printf("\n删除L后：ListLength(L)=%d\n", ListLength(L));
-	//CreateListTail(&L, 20);
-	//printf("整体创建L的元素(尾插法)：");
-	//ListTraverse(L);
+	i = ClearList(&L);
+	printf("\n删除L后：ListLength(L)=%d\n", ListLength(L));
+	CreateListTail(&L, 20);//尾插法 插入1到20
+	printf("整体创建L的元素(尾插法)：");
+	ListTraverse(L);
+	printf("尾插法后:ListLength(L)=%d \n", ListLength(L));
 
 	return 0;
 }
