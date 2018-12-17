@@ -98,11 +98,11 @@ int main()
 	printf("\n在L的“B”与“D”之间插入“C”后：\nL.data=");
 	ListTraverse(L);
 
-	//i = ListDelete(L, 1);
-	//printf("\n在L的删除“A”后：\nL.data=");
-	//ListTraverse(L);
+	i = ListDelete(L, 1);
+	printf("\n在L的删除“A”后：\nL.data=");
+	ListTraverse(L);
 
-	//printf("\n");
+	printf("\n");
 
 	return 0;
 }
