@@ -1,4 +1,4 @@
-//顺序队列queue
+//顺序循环队列queue
 //本处学习方法：把《大话数据结构》的main部分拷贝过来，其他部分自己实现
 //1.我的错误点有写备注，详看代码注释
 #include "stdio.h"
@@ -18,22 +18,38 @@ typedef int QElemType;
 
 typedef struct
 {
-	
+	QElemType data[MAXSIZE];
+	int front;
+	int rear;
 }SqQueue;
 
 Status visit(QElemType c)
 {
-	printf("%d ",c);
+	printf("%d ", c);
 	return OK;
 }
 
+Status InitQueue(SqQueue *Q) {
+	Q->front = 0;
+	Q->rear = 0;
+	return OK;
+}
+
+Status QueueEmpty(SqQueue *Q) {
+	if (Q->front == Q->rear) {
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
 int main()
 {
-	//Status j;
-	//int i=0,l;
-	//QElemType d;
-	//SqQueue Q;
-	//InitQueue(&Q);
+	Status j;
+	int i = 0, l;
+	QElemType d;
+	SqQueue Q;
+	InitQueue(&Q);
 	//printf("初始化队列后，队列空否？%u(1:空 0:否)\n",QueueEmpty(Q));
 
 	//printf("请输入整型队列元素(不超过%d个),-1为提前结束符: ",MAXSIZE-1);
