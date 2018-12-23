@@ -1,8 +1,8 @@
 //链栈linkStack
 //本处学习方法：把《大话数据结构》的main部分拷贝过来，其他部分自己实现
-//1.我的错误点有写备注，详看代码注释
-//2.要注意区分LinkStack,LinkStackPtr
-//3.链表节点一定是要一个一个释放的,不要忘了
+//1.要注意区分LinkStack,LinkStackPtr
+//2.链表节点一定是要一个一个释放的,不要忘了
+//3.我的错误点有写备注，详看代码注释
 #include "stdio.h"    
 #include "stdlib.h"   
 #include "io.h"  
